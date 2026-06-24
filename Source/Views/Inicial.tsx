@@ -7,35 +7,42 @@ import { View, Text, Image, StyleSheet, ToastAndroid, Platform, Alert, Touchable
 import  useViewModel  from "./ViewModel"; 
 
 export const InicialScreen = () => {
-    const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
-    const { butoonEntrar,butoonCriarConta  } = useViewModel();
 
-    return (
-        <View style={styles.container}>
-            <Text>Tela Inicial</Text>
-
-            <TouchableOpacity style={styles.buttonEntrar}>
-                <Text style={styles.buttonCriarConta}>Entar</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity>
-             <Text style = {styles.buttonCriarConta}>Criar Conta </Text>
-            </TouchableOpacity>
-        </View>
-    );
-};
-const styles = StyleSheet.create({
-    
-    container:{
-    
-    },
-    buttonCriarConta: {
-
-    },
-    buttonEntrar:{
-         
-    }
+    const botoes =[
+    { id: '1', texto: 'Velocidade', acao: () => console.log('0.5') },
+    { id: '2', texto: 'Velocidade', acao: () => console.log('1.0') },
+    { id: '3', texto: 'Velocidade', acao: () => console.log('1.5') },
+    { id: '4', texto: 'Velocidade', acao: () => console.log('2.0') },
+    ];
 
 
-})
+  
+    <View>
+        <Text> <title>Configurações</title>
+        gerencie suas preferências do app 
+        </Text>
 
+
+
+         <View>
+        <Text><title>Leitura de tela</title></Text>
+           
+         </View>
+
+          <View>
+        <Text><title>Tipo de voz feminina</title></Text>
+          </View>
+
+          <View>
+         <Text><title>Volume de som</title></Text>
+          </View>
+
+          <View>
+         <Text><title>Aparência</title></Text>
+          </View>
+
+
+    </View>
+
+
+}
