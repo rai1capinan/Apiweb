@@ -92,7 +92,15 @@ export const InicialScreen = () => {
                 {/* Aparência */}
                 <View style={styles.sectionBlock}>
                     <Text style={styles.mainTitle}>Aparência</Text>
-                    <Text style={styles.sectionTitle}>Modo Escuro</Text>
+
+                    <View style = {styles.botoesContainer}>
+                    <TouchableOpacity>
+
+                    </TouchableOpacity>
+                     
+
+                    </View>
+                 
                 </View>
 
             </View>
