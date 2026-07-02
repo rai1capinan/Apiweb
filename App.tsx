@@ -10,16 +10,16 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* <Stack.Screen 
+         { <Stack.Screen 
           name="Inicial" 
           component={InicialScreen} 
           options={{ headerShown: false }}
-        /> */}
-        <Stack.Screen 
+        /> } 
+        {/* { <Stack.Screen 
           name="Perfil" 
           component={PerfilScreen} 
           options={{ headerShown: false }}
-        />
+        /> } */}
       </Stack.Navigator>
     </NavigationContainer>
   );

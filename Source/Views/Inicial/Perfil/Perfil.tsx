@@ -42,8 +42,11 @@ export const PerfilScreen = () => {
             valor: '000.000.000-00',
             icon: () => <FileUser size={22} color="#1D3D87" />
         }
+
+    
     ];
 
+         <TouchableOpacity> Editar dados </TouchableOpacity>
     return (
         <ScrollView style={styles.container} contentContainerStyle={styles.content}>
             <Text style={styles.mainTitle}>Informações Pessoais</Text>
@@ -52,12 +55,12 @@ export const PerfilScreen = () => {
             {dadosUsuario.map((item) => (
                 <View key={item.id} style={styles.infoCard}>
                     
-                    {/* Container do Ícone (Quadrado Azul Claro) */}
+                    {/* Container do Ícone */}
                     <View style={styles.iconContainer}>
                         {item.icon()}
                     </View>
 
-                    {/* Container dos Textos (Label e Valor) */}
+                    {/* Container dos Textos */}
                     <View style={styles.textContainer}>
                         <Text style={styles.label}>{item.label}</Text>
                         <Text style={styles.valor}>{item.valor}</Text>

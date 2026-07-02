@@ -1,15 +1,27 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Switch } from 'react-native';
+import Slider from '@react-native-community/slider';
 
 export const InicialScreen = () => {
     const [leituraAtiva, setLeituraAtiva] = useState(true);
     const [velocidade, setVelocidade] = useState('1.0x');
     const [tipoVoz, setTipoVoz] = useState('Masculina');
+    const [vibracao, setVibracao] = useState(true);
+    const [sonsAlertas, setSonsAlertas] = useState(true);
+    const [tipodetema, setTipodetema] = useState('Modo claro');
+    
+  
+    const [volume, setVolume] = useState(0.75); 
 
     const velocidades = ['0.5x', '1.0x', '1.5x', '2.0x'];
 
+  
+    const aumentarVolume = () => setVolume(prev => Math.min(prev + 0.1, 1));
+    const diminuirVolume = () => setVolume(prev => Math.max(prev - 0.1, 0));
+
     return (
         <View style={styles.container}>
+            
             {/* Cabeçalho Azul */}
             <View style={styles.headerContainer}>
                 <View style={styles.headerTextContainer}>
@@ -54,7 +66,7 @@ export const InicialScreen = () => {
                     </View>
                 </View>
 
-        
+                {/* Tipo de Voz */}
                 <View style={styles.sectionBlock}>
                     <Text style={styles.sectionTitle}>Tipo de Voz</Text>
                     <View style={styles.botoesContainer}>
@@ -80,27 +92,79 @@ export const InicialScreen = () => {
                     <Text style={styles.sectionTitle}>Volume do som</Text>
                  
                     <View style={styles.sliderContainer}>
-                        <Text style={styles.sliderControl}>−</Text>
-                        <View style={styles.sliderTrack}>
-                            <View style={styles.sliderProgress} />
-                            <View style={styles.sliderThumb} />
-                        </View>
-                        <Text style={styles.sliderControl}>+</Text>
+                        <TouchableOpacity onPress={diminuirVolume}>
+                            <Text style={styles.sliderControl}>−</Text>
+                        </TouchableOpacity>
+
+                        <Slider
+                            style={styles.sliderComponent}
+                            minimumValue={0}
+                            maximumValue={1}
+                            value={volume}
+                            onValueChange={(value) => setVolume(value)}
+                            minimumTrackTintColor="#1D3D87"  
+                            maximumTrackTintColor="#E5E5E5"  
+                            thumbTintColor="#1D3D87"        
+                        />
+
+                        <TouchableOpacity onPress={aumentarVolume}>
+                            <Text style={styles.sliderControl}>+</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
 
                 {/* Aparência */}
                 <View style={styles.sectionBlock}>
                     <Text style={styles.mainTitle}>Aparência</Text>
-
-                    <View style = {styles.botoesContainer}>
-                    <TouchableOpacity>
-
-                    </TouchableOpacity>
-                     
-
+                    <View style={styles.botoesContainer}>
+                        <TouchableOpacity />
                     </View>
-                 
+                </View>
+
+                {/* Modo escuro */}
+                <View style={styles.sectionBlock}>
+                    <Text style={styles.sectionTitle}>Modo escuro</Text>
+                    <View style={styles.botoesContainer}>
+                        {['Modo escuro', 'Modo claro'].map((modo) => {
+                            const isActive = tipodetema === modo;
+                            return (
+                                <TouchableOpacity 
+                                    key={modo} 
+                                    style={[styles.buttonPill, isActive && styles.buttonActive]} 
+                                    onPress={() => setTipodetema(modo)}
+                                >
+                                    <Text style={[styles.buttonText, isActive && styles.buttonTextActive]}>
+                                        {modo}
+                                    </Text>
+                                </TouchableOpacity>
+                            );
+                        })}
+                    </View>
+
+                    <Text style={styles.mainTitlee}>Notificações e Sensores</Text>
+
+                    {/* Vibração */}
+                    <View style={styles.RowSetting}>
+                        <Text style={styles.sectionTitleNoMargin}>Vibração</Text>
+                        <Switch
+                            value={vibracao}
+                            onValueChange={(value) => setVibracao(value)}
+                            trackColor={{ false: '#E5E5E5', true: '#1D3D87' }}
+                            thumbColor={'#fff'}
+                        />
+                    </View>
+
+                    {/* Sons de Alerta */}
+                    <View style={styles.RowSetting}>
+                        <Text style={styles.sectionTitleNoMargin}>Sons de Alerta</Text>
+
+                    <Switch
+                        value={sonsAlertas}
+                        onValueChange={(value) => setSonsAlertas(value)}
+                        trackColor={{ false: '#E5E5E5', true: '#1D3D87' }}
+                        thumbColor={'#fff'}
+                        />
+                    </View>
                 </View>
 
             </View>
@@ -113,7 +177,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
     },
-      headerContainer: {
+    headerContainer: {
         backgroundColor: '#1D3D87',
         paddingTop: 50,
         paddingBottom: 25,
@@ -121,8 +185,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        borderBottomLeftRadius: 0,
-        borderBottomRightRadius: 0,
     },
     headerTextContainer: {
         flex: 1,
@@ -145,7 +207,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         opacity: 0.9,
     },
-
     contentContainer: {
         padding: 20,
     },
@@ -171,20 +232,17 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         marginBottom: 10,
     },
-
     botoesContainer: {
         flexDirection: 'row',
         flexWrap: 'wrap', 
         gap: 10,
     },
-    
     buttonBadge: {
         backgroundColor: '#E5E5E5',
         paddingHorizontal: 22,
         paddingVertical: 10,
         borderRadius: 20,
     },
-  
     buttonPill: {
         backgroundColor: '#E5E5E5',
         paddingHorizontal: 30,
@@ -211,31 +269,32 @@ const styles = StyleSheet.create({
         marginTop: 5,
     },
     sliderControl: {
-        fontSize: 20,
+        fontSize: 24,
         fontWeight: 'bold',
         color: '#666',
+        paddingHorizontal: 5,
     },
-    sliderTrack: {
+    // Substituiu as tracks manuais antigas por esse estilo limpo para o componente Slider:
+    sliderComponent: {
         flex: 1,
-        height: 6,
-        backgroundColor: '#E5E5E5',
-        borderRadius: 3,
+        height: 40,
+    },
+    mainTitlee: {
+        fontWeight: 'bold',
+        color: '#000',
+        marginTop: 25,
+        marginBottom: 5,
+        fontSize: 20,
+    },                  
+    RowSetting: {
         flexDirection: 'row',
+        justifyContent: 'space-between',
         alignItems: 'center',
-        position: 'relative',
+        marginVertical: 12, 
     },
-    sliderProgress: {
-        width: '75%',
-        height: '100%',
-        backgroundColor: '#1D3D87',
-        borderRadius: 3,
+    sectionTitleNoMargin: {
+        fontSize: 16,
+        color: '#333', 
+        fontWeight: '500',
     },
-    sliderThumb: {
-        width: 16,
-        height: 16,
-        borderRadius: 8,
-        backgroundColor: '#1D3D87',
-        position: 'absolute',
-        left: '73%', 
-    }
 });
