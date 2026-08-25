@@ -1,16 +1,10 @@
 import React, { useState } from "react";
-
-import { View, Text, StyleSheet, TouchableOpacity, Switch, ScrollView } from 'react-native';
-import { User } from 'lucide-react-native';
-import { CalendarDays } from 'lucide-react-native';
-import { Mail } from 'lucide-react-native';
-import { Phone } from 'lucide-react-native';
-
-import { FileUser } from 'lucide-react-native';
-
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { User, CalendarDays, Mail, Phone, FileUser } from 'lucide-react-native';
+import { PencilLine } from "lucide-react-native";
 export const PerfilScreen = () => {
 
-   
+     
     const dadosUsuario = [
         {
             id: '1',
@@ -42,19 +36,14 @@ export const PerfilScreen = () => {
             valor: '000.000.000-00',
             icon: () => <FileUser size={22} color="#1D3D87" />
         }
-
-    
     ];
 
-         <TouchableOpacity> Editar dados </TouchableOpacity>
     return (
         <ScrollView style={styles.container} contentContainerStyle={styles.content}>
             <Text style={styles.mainTitle}>Informações Pessoais</Text>
 
-            {/* Loop para renderizar cada card de informação */}
             {dadosUsuario.map((item) => (
                 <View key={item.id} style={styles.infoCard}>
-                    
                     {/* Container do Ícone */}
                     <View style={styles.iconContainer}>
                         {item.icon()}
@@ -65,9 +54,16 @@ export const PerfilScreen = () => {
                         <Text style={styles.label}>{item.label}</Text>
                         <Text style={styles.valor}>{item.valor}</Text>
                     </View>
-
                 </View>
             ))}
+
+          
+            <TouchableOpacity style={styles.editButton} 
+            onPress={() => console.log('Editar dados')} >
+                <PencilLine size={20}  color="#fff" style={{ marginRight: 10, marginLeft: -115, top: 1 }} />
+                <Text style={styles.editButtonText}>Editar dados</Text>
+                
+            </TouchableOpacity>
         </ScrollView>
     );
 };
@@ -84,22 +80,19 @@ const styles = StyleSheet.create({
     mainTitle: {
         fontSize: 20,
         fontWeight: 'bold',
-        color: '#1D3D87', // Azul escuro do título principal
+        color: '#1D3D87', 
         marginBottom: 20,
     },
-
-    // Estrutura do card com a borda externa fina
     infoCard: {
         flexDirection: 'row',
         alignItems: 'center',
         borderWidth: 1,
-        borderColor: '#E2E8F0', // Cor suave para a borda do card
+        borderColor: '#E2E8F0', 
         borderRadius: 12,
         padding: 12,
         marginBottom: 12,
         backgroundColor: '#fff',
     },
-    // Quadrado com fundo azul claro para o ícone
     iconContainer: {
         width: 48,
         height: 48,
@@ -109,22 +102,33 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginRight: 14,
     },
-
     textContainer: {
         flex: 1,
         justifyContent: 'center',
     },
-
-    // Texto de cima (menor e cinza)
     label: {
         fontSize: 13,
         color: '#718096',
         marginBottom: 2,
     },
-    // Texto de baixo (maior e azul escuro)
     valor: {
         fontSize: 16,
         fontWeight: 'bold',
         color: '#1D3D87',
+    },
+    // Estilos do Botão
+    editButton: {
+        backgroundColor: '#1D3D87',
+        paddingVertical: 12,
+        borderRadius: 12,
+        alignItems: 'center',
+        marginTop: 10,
+    },
+    editButtonText: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: 'bold',
+        alignContent: 'center',
+        marginTop: -20,
     },
 });

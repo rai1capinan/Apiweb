@@ -274,7 +274,7 @@ const styles = StyleSheet.create({
         color: '#666',
         paddingHorizontal: 5,
     },
-    // Substituiu as tracks manuais antigas por esse estilo limpo para o componente Slider:
+    
     sliderComponent: {
         flex: 1,
         height: 40,
